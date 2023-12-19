@@ -3,7 +3,7 @@
 import { useReducer } from "react";
 import styles from "./page.module.css";
 import { productReducer } from "./productReducer";
-import { ALL_PRODUCTS } from "./products";
+import { ALL_PRODUCTS } from "./data";
 import { Cart } from "./components/Cart";
 import { Total } from "./components/Total";
 import { Products } from "./components/Products";
