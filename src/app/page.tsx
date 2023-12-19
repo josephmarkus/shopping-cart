@@ -147,12 +147,10 @@ const reducer = (state: State, action: Action) => {
       const quantity = state[itemId].quantity as number;
 
       if (itemId > -1) {
-        return [
-          ...state.toSpliced(itemId, 1, {
-            ...action.product,
-            quantity: quantity + 1,
-          }),
-        ];
+        return state.toSpliced(itemId, 1, {
+          ...action.product,
+          quantity: quantity + 1,
+        });
       }
 
       return [...state, action.product];
@@ -163,12 +161,10 @@ const reducer = (state: State, action: Action) => {
       const quantity = state[itemId].quantity as number;
 
       if (itemId > -1) {
-        return [
-          ...state.toSpliced(itemId, 1, {
-            ...action.product,
-            quantity: quantity - 1,
-          }),
-        ];
+        return state.toSpliced(itemId, 1, {
+          ...action.product,
+          quantity: quantity - 1,
+        });
       }
 
       return [...state, action.product];
