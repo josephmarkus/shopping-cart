@@ -8,13 +8,12 @@ type CartProps = {
 
 export const Cart = (props: CartProps) => {
   const { products } = props;
-  const cart = products.filter((product) => product.quantity > 0);
 
   return (
     <div className={styles.cart}>
       <Title elementType="h2">Cart</Title>
       <ul>
-        {cart.map(({ quantity, name }) => (
+        {products.map(({ quantity, name }) => (
           <li className={styles.cartItem} key={name}>
             {quantity}x {name}
           </li>

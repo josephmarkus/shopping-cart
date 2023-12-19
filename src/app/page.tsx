@@ -10,12 +10,13 @@ import { Products } from "./components/Products";
 
 export default function Home() {
   const [products, dispatch] = useReducer(productReducer, ALL_PRODUCTS);
+  const cart = products.filter((product) => product.quantity > 0);
 
   return (
     <main className={styles.main}>
       <Products items={products} onDispatch={dispatch} />
       <div className={styles.sidebar}>
-        <Cart products={products} />
+        <Cart products={cart} />
         <Total />
       </div>
     </main>
