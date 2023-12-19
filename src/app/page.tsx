@@ -1,6 +1,6 @@
 "use client";
 
-import { Reducer, useReducer } from "react";
+import { useReducer } from "react";
 import styles from "./page.module.css";
 import { productReducer } from "./productReducer";
 import { ALL_PRODUCTS } from "./data";
