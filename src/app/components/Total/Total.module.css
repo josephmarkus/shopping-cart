@@ -1,6 +1,7 @@
 .total {
   display: grid;
   gap: var(--grid-gap);
+  grid-template-rows: auto 1fr;
   padding: var(--container-padding);
   border-top: 1px solid var(--border-color);
 }
