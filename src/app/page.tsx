@@ -1,7 +1,12 @@
 "use client";
 
-import { CSSProperties, Reducer, useReducer, useState } from "react";
+import { CSSProperties, useReducer } from "react";
 import styles from "./page.module.css";
+
+enum ProductAction {
+  ADD = "ADD",
+  REMOVE = "REMOVE",
+}
 
 type Product = {
   name: string;
@@ -130,13 +135,13 @@ const ALL_PRODUCTS = [
 type State = Product[];
 
 type Action = {
-  type: "add" | "remove";
+  type: ProductAction;
   product: Product;
 };
 
 const reducer = (state: State, action: Action) => {
   switch (action.type) {
-    case "add": {
+    case ProductAction.ADD: {
       const { name } = action.product;
       const itemId = state.findIndex((item) => item.name === name);
       const quantity = state[itemId].quantity as number;
@@ -152,7 +157,7 @@ const reducer = (state: State, action: Action) => {
 
       return [...state, action.product];
     }
-    case "remove": {
+    case ProductAction.REMOVE: {
       const { name } = action.product;
       const itemId = state.findIndex((item) => item.name === name);
       const quantity = state[itemId].quantity as number;
@@ -196,14 +201,18 @@ export default function Home() {
                   <button
                     type="button"
                     className={styles.add}
-                    onClick={() => dispatch({ type: "add", product })}
+                    onClick={() =>
+                      dispatch({ type: ProductAction.ADD, product })
+                    }
                   >
                     Add to cart
                   </button>
                   <button
                     type="button"
                     className={styles.remove}
-                    onClick={() => dispatch({ type: "remove", product })}
+                    onClick={() =>
+                      dispatch({ type: ProductAction.REMOVE, product })
+                    }
                     disabled={isDisabled}
                   >
                     Remove
