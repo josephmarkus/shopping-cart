@@ -1,0 +1,10 @@
+.cart {
+  display: grid;
+  grid-template-rows: auto 1fr;
+  gap: var(--grid-gap);
+  padding: var(--container-padding);
+}
+
+.cartItem {
+  list-style: none;
+}
