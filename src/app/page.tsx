@@ -1,6 +1,6 @@
 "use client";
 
-import { CSSProperties, useState } from "react";
+import { CSSProperties, Reducer, useReducer, useState } from "react";
 import styles from "./page.module.css";
 
 type Product = {
@@ -127,27 +127,53 @@ const ALL_PRODUCTS = [
   },
 ];
 
-export default function Home() {
-  const [products, setProducts] = useState(ALL_PRODUCTS);
-  const cart = products.filter((product) => product.quantity > 0);
+type State = Product[];
 
-  const handleChange = (action: "add" | "remove", product: Product) => {
-    const { name } = product;
-    const itemId = products.findIndex((item) => item.name === name);
-    const quantity = products[itemId].quantity as number;
-    const calculate = action === "add" ? quantity + 1 : quantity - 1;
+type Action = {
+  type: "add" | "remove";
+  product: Product;
+};
 
-    if (itemId > -1) {
-      const updatedProducts = products.toSpliced(itemId, 1, {
-        ...product,
-        quantity: calculate,
-      });
-      setProducts(updatedProducts);
-      return;
+const reducer = (state: State, action: Action) => {
+  switch (action.type) {
+    case "add": {
+      const { name } = action.product;
+      const itemId = state.findIndex((item) => item.name === name);
+      const quantity = state[itemId].quantity as number;
+
+      if (itemId > -1) {
+        return [
+          ...state.toSpliced(itemId, 1, {
+            ...action.product,
+            quantity: quantity + 1,
+          }),
+        ];
+      }
+
+      return [...state, action.product];
     }
+    case "remove": {
+      const { name } = action.product;
+      const itemId = state.findIndex((item) => item.name === name);
+      const quantity = state[itemId].quantity as number;
 
-    setProducts([...products, product]);
-  };
+      if (itemId > -1) {
+        return [
+          ...state.toSpliced(itemId, 1, {
+            ...action.product,
+            quantity: quantity - 1,
+          }),
+        ];
+      }
+
+      return [...state, action.product];
+    }
+  }
+};
+
+export default function Home() {
+  const [products, dispatch] = useReducer(reducer, ALL_PRODUCTS);
+  const cart = products.filter((product) => product.quantity > 0);
 
   return (
     <main className={styles.main}>
@@ -170,14 +196,14 @@ export default function Home() {
                   <button
                     type="button"
                     className={styles.add}
-                    onClick={() => handleChange("add", product)}
+                    onClick={() => dispatch({ type: "add", product })}
                   >
                     Add to cart
                   </button>
                   <button
                     type="button"
                     className={styles.remove}
-                    onClick={() => handleChange("remove", product)}
+                    onClick={() => dispatch({ type: "remove", product })}
                     disabled={isDisabled}
                   >
                     Remove
