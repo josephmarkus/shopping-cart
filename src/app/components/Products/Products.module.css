@@ -42,7 +42,6 @@
   justify-content: center;
 }
 
-.add,
-.remove {
+.button {
   padding: 2px 4px;
 }

@@ -36,7 +36,7 @@ export const Products = (props: ProductsProps) => {
               <div className={styles.actions}>
                 <button
                   type="button"
-                  className={styles.add}
+                  className={styles.button}
                   onClick={() =>
                     onDispatch({ type: ProductAction.ADD, product })
                   }
@@ -45,7 +45,7 @@ export const Products = (props: ProductsProps) => {
                 </button>
                 <button
                   type="button"
-                  className={styles.remove}
+                  className={styles.button}
                   onClick={() =>
                     onDispatch({ type: ProductAction.REMOVE, product })
                   }
