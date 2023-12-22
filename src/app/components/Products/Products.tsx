@@ -2,6 +2,7 @@ import styles from "./Products.module.css";
 import { Title } from "../Title";
 import { CSSProperties } from "react";
 import { Product, ProductAction } from "@/app/types";
+import { Container } from "../Container";
 
 type ProductsProps = {
   items: Product[];
@@ -18,7 +19,7 @@ export const Products = (props: ProductsProps) => {
   const { items, onDispatch } = props;
 
   return (
-    <div className={styles.container}>
+    <Container>
       <Title elementType="h1">Products</Title>
       <ul className={styles.list}>
         {items.map((product) => {
@@ -58,6 +59,6 @@ export const Products = (props: ProductsProps) => {
           );
         })}
       </ul>
-    </div>
+    </Container>
   );
 };

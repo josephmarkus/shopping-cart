@@ -1,0 +1,5 @@
+.container {
+  display: grid;
+  gap: var(--grid-gap);
+  padding: var(--container-padding);
+}

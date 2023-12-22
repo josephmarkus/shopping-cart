@@ -1,4 +1,5 @@
 import { formatPrice } from "@/app/utils";
+import { Container } from "../Container";
 import { Title } from "../Title";
 import styles from "./Total.module.css";
 
@@ -11,9 +12,9 @@ export const Total = (props: TotalProps) => {
   const amountFormatted = formatPrice(amount);
 
   return (
-    <div className={styles.total}>
+    <Container className={styles.total}>
       <Title elementType="h2">Total</Title>
       <p>{amountFormatted}</p>
-    </div>
+    </Container>
   );
 };
