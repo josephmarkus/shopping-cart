@@ -10,20 +10,17 @@ import { Products } from "./components/Products";
 import { sanitisePrice } from "./utils";
 
 export default function Home() {
-  const [state, dispatch] = useReducer(productReducer, {
-    products: ALL_PRODUCTS,
-    cart: [],
-  });
-  const total = state.cart.reduce((total, { price, quantity }) => {
-    const productPrice = sanitisePrice(price);
-    return productPrice * quantity + total;
+  const [state, dispatch] = useReducer(productReducer, []);
+  const total = state.reduce((total, item) => {
+    const productPrice = sanitisePrice(item.price);
+    return productPrice * (item.quantity || 0) + total;
   }, 0);
 
   return (
     <main className={styles.main}>
-      <Products items={state.products} onDispatch={dispatch} />
+      <Products items={ALL_PRODUCTS} onDispatch={dispatch} />
       <div className={styles.sidebar}>
-        <Cart products={state.cart} />
+        <Cart products={state} />
         <Total amount={total} />
       </div>
     </main>

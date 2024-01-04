@@ -2,7 +2,7 @@ export type Product = {
   name: string;
   price: string;
   color: string;
-  quantity: number;
+  quantity?: number;
 };
 
 export enum ProductAction {

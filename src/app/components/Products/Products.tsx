@@ -1,6 +1,6 @@
 import styles from "./Products.module.css";
 import { Title } from "../Title";
-import { CSSProperties } from "react";
+import { CSSProperties, memo } from "react";
 import { Product, ProductAction } from "@/app/types";
 import { Container } from "../Container";
 
@@ -15,7 +15,7 @@ type ProductsProps = {
   }) => void;
 };
 
-export const Products = (props: ProductsProps) => {
+export const Products = memo((props: ProductsProps) => {
   const { items, onDispatch } = props;
 
   return (
@@ -23,8 +23,7 @@ export const Products = (props: ProductsProps) => {
       <Title elementType="h1">Products</Title>
       <ul className={styles.list}>
         {items.map((product) => {
-          const { color, name, price, quantity } = product;
-          const isDisabled = quantity === 0;
+          const { color, name, price } = product;
 
           return (
             <li
@@ -50,7 +49,6 @@ export const Products = (props: ProductsProps) => {
                   onClick={() =>
                     onDispatch({ type: ProductAction.REMOVE, product })
                   }
-                  disabled={isDisabled}
                 >
                   Remove
                 </button>
@@ -61,4 +59,6 @@ export const Products = (props: ProductsProps) => {
       </ul>
     </Container>
   );
-};
+});
+
+Products.displayName = "Products";

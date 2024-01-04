@@ -16,7 +16,9 @@ export const Cart = (props: CartProps) => {
       <Title elementType="h2">Cart</Title>
       <ul>
         {products.map(({ quantity, name, price }) => {
-          const productPrice = formatPrice(sanitisePrice(price) * quantity);
+          const productPrice = formatPrice(
+            sanitisePrice(price) * (quantity || 0),
+          );
 
           return (
             <li className={styles.cartItem} key={name}>
